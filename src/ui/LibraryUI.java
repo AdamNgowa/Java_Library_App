@@ -46,20 +46,26 @@ public class LibraryUI {
     }
 
     private void addBook() {
-        System.out.println("Enter ID:");
-        int id = scanner.nextInt();
-        scanner.nextLine();
 
         System.out.println("Enter title");
-        String title = scanner.nextLine();
+        String title = scanner.nextLine().trim();
+
+        if (title.isEmpty()) {
+            System.out.println("Title cannot be empty");
+            return;
+        }
 
         System.out.println("Enter Author:");
         String author = scanner.nextLine();
 
-        Book book = new Book(id, title, author);
-        service.addBook(book);
+        if (author.isEmpty()) {
+            System.out.println("Author cannot be empty");
+            return;
+        }
 
-        System.out.println("Book added!");
+
+        service.addBook(title,author);
+        System.out.println("Book added successfully!");
     }
 
     private void viewBooks() {
@@ -75,17 +81,17 @@ public class LibraryUI {
 
     }
 
-    private void searchBooks(){
+    private void searchBooks() {
         System.out.println("Enter title to search: ");
         String title = scanner.nextLine();
 
         List<Book> results = service.searchByTitle(title);
 
-        if (results.isEmpty()){
+        if (results.isEmpty()) {
             System.out.println("No books found");
             return;
         }
-        for (Book book:results){
+        for (Book book : results) {
             System.out.println(book);
         }
     }
