@@ -18,6 +18,39 @@ public class LibraryService implements ILibraryService {
         books.add(book);
     }
 
+    //delete book
+    public boolean deleteBook(int id) {
+       return books.removeIf(book -> book.getId() == id);
+    }
+
+    //Get book by id
+    public Book getBookById(int id) {
+        for (Book book : books) {
+            if (book.getId() == id) {
+                return book;
+            }
+
+        }
+        return null;
+    }
+
+    //Update book
+    public boolean updateBook(int id, String newTitle, String newAuthor) {
+        Book book = getBookById(id);
+
+        if (book != null) {
+            if (!newTitle.isEmpty()) {
+                book.setTitle(newTitle);
+            }
+            if (!newAuthor.isEmpty()) {
+                book.setAuthor(newAuthor);
+            }
+            return true;
+        }
+
+        return false;
+    }
+
     //Get all books
     @Override
     public List<Book> getAllBooks() {
@@ -63,6 +96,7 @@ public class LibraryService implements ILibraryService {
                 String author = parts[2];
 
                 books.add(new Book(id, title, author));
+
                 //Keep ID counter in sync
                 if (id >= nextId) {
                     nextId = id + 1;
