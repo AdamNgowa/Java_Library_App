@@ -1,5 +1,6 @@
 package ui;
 
+import service.ILibraryService;
 import service.LibraryService;
 import model.Book;
 
@@ -7,10 +8,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class LibraryUI {
-    private LibraryService service;
+    private ILibraryService service;
     private Scanner scanner = new Scanner(System.in);
 
-    public LibraryUI(LibraryService service) {
+    public LibraryUI(ILibraryService service) {
         this.service = service;
     }
 
